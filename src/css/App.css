@@ -1,0 +1,187 @@
+/* App Container */
+.app-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  /* max-width: 800px; */
+  margin: auto;
+}
+
+/* Heading Styles */
+.app-container h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.app-container h2 {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Input Fields */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea[readonly] {
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+/* Buttons */
+button {
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Lock and Compare Button */
+button.lock-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button.compare-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+/* Button Group */
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+/* Patch Output */
+.patch-output textarea {
+  margin-top: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.download-btn {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.download-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.download-btn:hover {
+  background-color: #e0a800;
+}
+
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .header {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .footer {
+  background-color: #1e1e1e;
+  color: #cccccc;
+}
+
+body.dark-mode .nav-menu a {
+  color: #cccccc;
+}
+
+body.dark-mode .cta-button {
+  background-color: #ffffff;
+  color: #1e1e1e;
+}
+
+body.dark-mode .cta-button:hover {
+  background-color: #cccccc;
+}
+
+.api-message {
+  color: #007bff;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.api-message.error {
+  color: #ff4d4d;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.output-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.action-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+.reset-button {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #cc0000;
+}
