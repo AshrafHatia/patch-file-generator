@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-
-const API_BASE_URL = "http://127.0.0.1:8000";
 
 function Home() {
   const [code, setCode] = useState("");
   const [filePath, setFilePath] = useState("");
   const [patch, setPatch] = useState("");
   const [isLocked, setIsLocked] = useState(false);
-  const [lockedCode, setLockedCode] = useState('');
+  const [lockedCode, setLockedCode] = useState("");
   const [message, setMessage] = useState(""); // API response message
 
   const lockCode = async () => {
@@ -44,24 +41,60 @@ function Home() {
     }
   };
 
-  const generatePatch = (from: string, to: string, path: string) => {
-    const fromLines = from.split('\n');
-    const toLines = to.split('\n');
-    const diff = [];
-    diff.push(`--- ${path || 'locked_code'}`);
-    diff.push(`+++ ${path || 'new_code'}`);
-
-    let i = 0;
-    while (i < fromLines.length || i < toLines.length) {
-        if (fromLines[i] !== toLines[i]) {
-            diff.push(`- ${fromLines[i] || ''}`);
-            diff.push(`+ ${toLines[i] || ''}`);
-        }
-        i++;
+  const generatePatch = (from: string, to: string, path: string): string => {
+    if (!from || !to) {
+      return 'Error: Both "from" and "to" code must be provided.';
     }
 
-    return diff.join('\n');
-};
+    const fromLines = from.split("\n");
+    const toLines = to.split("\n");
+    const diff: string[] = [];
+
+    // Get current date and time
+    const now = new Date();
+    const formattedDate = now.toLocaleString(); // Example: "12/11/2024, 10:30:15 AM"
+
+    // Add date and file headers
+    diff.push(`# Generated on ${formattedDate}`);
+    diff.push(`--- ${path || "locked_code"}`);
+    diff.push(`+++ ${path || "new_code"}`);
+
+    let i = 0; // Line index
+    let hunkStart = null; // Start of the hunk
+    let hunkChanges: string[] = []; // Changes in the current hunk
+
+    const flushHunk = () => {
+      if (hunkChanges.length > 0) {
+        const hunkHeader = `@@ -${hunkStart},${fromLines.length} +${hunkStart},${toLines.length} @@`;
+        diff.push(hunkHeader);
+        diff.push(...hunkChanges);
+        hunkChanges = [];
+        hunkStart = null;
+      }
+    };
+
+    while (i < fromLines.length || i < toLines.length) {
+      const fromLine = fromLines[i] || ""; // Handle undefined
+      const toLine = toLines[i] || ""; // Handle undefined
+
+      if (fromLine !== toLine) {
+        if (hunkStart === null) hunkStart = i + 1; // Mark the start of the hunk
+
+        if (fromLine) hunkChanges.push(`- ${fromLine}`);
+        if (toLine) hunkChanges.push(`+ ${toLine}`);
+      } else if (hunkStart !== null) {
+        // Flush the hunk when a matching line is found
+        flushHunk();
+      }
+
+      i++;
+    }
+
+    // Flush any remaining hunk
+    flushHunk();
+
+    return diff.join("\n");
+  };
 
   const resetApp = () => {
     setCode("");
